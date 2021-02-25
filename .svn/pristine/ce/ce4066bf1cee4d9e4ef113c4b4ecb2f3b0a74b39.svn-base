@@ -1,0 +1,35 @@
+package com.webProject.mvc01;
+
+public class GroupDto {
+//그룹정보 DTO
+	private int ctgryNo;		//카테고리번호
+	private int textNo;			//게시글번호
+	private int joinNo;			//참가번호
+	private int mbrCode;		//회원번호(참가자)
+	
+	public int getCtgryNo() {
+		return ctgryNo;
+	}
+	public void setCtgryNo(int ctgryNo) {
+		this.ctgryNo = ctgryNo;
+	}
+	public int getTextNo() {
+		return textNo;
+	}
+	public void setTextNo(int textNo) {
+		this.textNo = textNo;
+	}
+	public int getJoinNo() {
+		return joinNo;
+	}
+	public void setJoinNo(int joinNo) {
+		this.joinNo = joinNo;
+	}
+	public int getMbrCode() {
+		return mbrCode;
+	}
+	public void setMbrCode(int mbrCode) {
+		this.mbrCode = mbrCode;
+	}
+	
+}

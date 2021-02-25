@@ -1,0 +1,19 @@
+package com.webProject.mvc01;
+
+import org.springframework.ui.Model;
+
+public class GroupBoardSvcImpl implements IGroupBoardSvc {
+
+	@Override
+	public String insertGroup(Model model, GroupDto dtoGroup) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deleteGroup(Model model, GroupDto dtoGroup) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

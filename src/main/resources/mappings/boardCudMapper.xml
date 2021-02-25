@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 단건조회 / 등록 / 수정 / 삭제 -->
+<mapper namespace="com.webProject.mvc01.IBoardCUDDao">
+	
+	<resultMap id="bDto" type="boardDto">	
+		<result property="textNo" column="BOD_NO"/>	
+		<result property="mbrCode" column="MEM_NUM"/>
+		<result property="mbrName" column="MEM_NAME"/>	
+		<result property="ctgryNo" column="CTGR_NO"/>	
+		<result property="title" column="BOD_TITLE"/>	
+		<result property="date" column="NEWDATE"/>	
+		<result property="content" column="BOD_TEXT"/>
+		<result property="cnt" column="BOD_CNT"/>
+		<result property="delChk" column="BOD_DELCHK"/>
+	</resultMap>
+	
+	<select id="sltOne" parameterType="int" resultMap="bDto">
+		SELECT MEM_NAME, B.* 
+			  ,REGEXP_REPLACE(B.BOD_DATE, '(.{4})(.{2})(.{2})(.{2})(.{2})', '\1-\2-\3 \4:\5') NEWDATE
+		FROM BOARD_INFO B
+		JOIN MEMBER_INFO M
+		ON   B.MEM_NUM = M.MEM_NUM
+		WHERE BOD_NO = #{newNum}
+	</select>
+	
+	<select id="sltMaxNum" resultType="int">
+		SELECT NVL(MAX(TO_NUMBER(BOD_NO)),0) FROM BOARD_INFO
+	</select>
+	
+	<insert id="insertBoard" parameterType="boardDto" >
+		INSERT INTO BOARD_INFO VALUES ( #{textNo}		<!-- 글번호 			-->
+									  , #{mbrCode}		<!-- 작성자 			-->
+									  , #{ctgryNo}		<!-- 카테고리 			-->
+									  , #{title}		<!-- 제목 			-->
+									  , #{date}			<!-- 작성일 			-->
+									  , #{content}		<!-- 내용 			-->
+									  , #{cnt}			<!-- 조회수 (등록시 0) 	-->
+									  , #{delChk}		<!-- 삭제여부(기본 1) 	-->
+									  )
+	</insert>
+	
+	<!-- 조회시 +1 -->
+	<update id="updateCnt" parameterType="int">
+		UPDATE board_info SET BOD_CNT = (BOD_CNT + 1)
+		WHERE BOD_NO = #{textNo}
+	</update>
+	
+	<!-- 수정 -->
+	<update id="updateBoard" parameterType="boardDto" >
+		UPDATE  BOARD_INFO
+		SET     BOD_TITLE  = #{title}			-- 제목
+		      , BOD_TEXT   = #{content}			-- 내용
+		WHERE   BOD_NO = #{textNo}
+	</update>
+	
+</mapper>
+

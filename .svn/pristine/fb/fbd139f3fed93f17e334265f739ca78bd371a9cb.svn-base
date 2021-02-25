@@ -1,0 +1,42 @@
+package com.webProject.mvc01;
+
+public class CommentDto {
+//댓글 DTO
+	private int ctgryNo;		//카테고리번호
+	private int textNo;			//게시글번호
+	private int cmtNo;			//댓글넘버
+	private int cmtLvl;			//댓글레벨
+	private String cmtText;		//댓글내용
+	
+	public int getCtgryNo() {
+		return ctgryNo;
+	}
+	public void setCtgryNo(int ctgryNo) {
+		this.ctgryNo = ctgryNo;
+	}
+	public int getTextNo() {
+		return textNo;
+	}
+	public void setTextNo(int textNo) {
+		this.textNo = textNo;
+	}
+	public int getCmtNo() {
+		return cmtNo;
+	}
+	public void setCmtNo(int cmtNo) {
+		this.cmtNo = cmtNo;
+	}
+	public int getCmtLvl() {
+		return cmtLvl;
+	}
+	public void setCmtLvl(int cmtLvl) {
+		this.cmtLvl = cmtLvl;
+	}
+	public String getCmtText() {
+		return cmtText;
+	}
+	public void setCmtText(String cmtText) {
+		this.cmtText = cmtText;
+	}
+	
+}

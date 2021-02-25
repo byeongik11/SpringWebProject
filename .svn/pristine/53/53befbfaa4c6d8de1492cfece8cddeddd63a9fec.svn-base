@@ -1,0 +1,85 @@
+package com.webProject.mvc01;
+
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+//동행자 게시판 조회, 글 등록, 수정, 삭제
+@Controller
+public class BoardGroupCtrl {
+
+	@Autowired
+	IBoardSvc boardSvc;
+	
+	@Autowired
+	IBoardRSvc boardRSvc;
+	
+	//그룹
+	
+	//그룹 목록 보기
+	@RequestMapping("groupBoard.do")	
+	public String getGroupBoard(Model model, SearchDto serDto, PageInfoDto pageDto) {
+		
+		String viewName = boardRSvc.sltGroupPage(model, serDto, pageDto);
+		return viewName;
+	}
+	
+	//그룹 글 보기(미완)
+	@RequestMapping("groupContent.do")	
+	public String GroupContent(Model model, BoardInfoDto boardDto, HttpSession session) {
+		
+		MbrDto mbrDto = (MbrDto) session.getAttribute("LOGIN");
+		
+		if(mbrDto == null) {
+			model.addAttribute("MSG", "로그인이 필요합니다!");
+			return "login";
+		}
+		System.out.println(boardDto.getTextNo());
+		return "groupContent";
+	}
+	
+	//그룹 글 쓰기 페이지 호출
+	@RequestMapping("groupWrite")		
+	public String GroupWritePage(Model model,HttpSession session) {
+		
+		MbrDto mbrDto = (MbrDto) session.getAttribute("LOGIN");
+		
+		if(mbrDto == null) {
+			model.addAttribute("MSG", "로그인이 필요합니다!");
+			return "login";
+		}
+		
+		System.out.println("등록된 유저정보 : " + mbrDto.getMem_name());
+		
+		return "groupWrite";
+	}
+	
+	//그룹 글 등록
+	@RequestMapping("groupInsert.do")
+	public String GroupInsert(HttpSession session,
+			 @ModelAttribute("gubun") int gubun , Model model , BoardInfoDto dtoBoard) {
+		
+		MbrDto mbrDto = (MbrDto) session.getAttribute("LOGIN");
+		
+		if(mbrDto == null) {
+			model.addAttribute("MSG", "세션이 만료되었습니다. 다시 로그인 해주세요.");
+			return "login";
+		}
+		
+		HashMap<String, Object> dataHm = new HashMap<String, Object>();
+		dataHm.put("gubun", gubun);
+		dataHm.put("loginData", mbrDto);
+		dataHm.put("boardData", dtoBoard);
+		
+		String viewName = boardSvc.boardInsert(model, dataHm);
+		
+		return viewName;
+	}
+}

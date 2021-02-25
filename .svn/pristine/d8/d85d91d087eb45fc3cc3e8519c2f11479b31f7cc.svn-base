@@ -1,0 +1,68 @@
+package com.webProject.mvc01;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+//회원가입, 로그인, ID/PW찾기, 마이페이지 조회
+@Controller
+public class MemberCtrl {
+	
+	@Autowired
+	private IMemberSvc mbrSvc;
+	
+	@RequestMapping("myPage.do")								//마이페이지 호출 및 정보조회결과 뿌리기
+	public String mbrMyPage(Model model, MbrDto dtoMbr) {
+		return "myPage";
+	}
+	
+	@RequestMapping("mbrJoin")									//회원등록(가입)화면 띄우기(viewName)
+	public String mbrRgt() {
+		return "mbrJoin";
+	}
+	
+	@RequestMapping("login")									//로그인 화면 띄우기
+	public String getLogin() {	
+		return "login";
+	}
+	
+	@RequestMapping("login.do")									//로그인 실행
+	public String mbrLogin(Model model, HttpSession session, MbrDto mbrDto) {
+
+		String viewName = mbrSvc.login(model, session, mbrDto);
+		
+
+		
+		return viewName;
+		
+	}
+	
+	public String mbrRgtInsert(Model model, MbrDto dtoMbr) { 	//회원등록(가입) 실행(id단건조회 포함되야함)
+		return null;
+	}
+	
+	public String mbrRgtUpdate(Model model, MbrDto dtoMbr) {	//마이페이지에서 회원 수정실행 및 수정결과 뿌리기
+		return null;
+	}
+	
+	public String mbrRgtDelete(Model model, MbrDto dtoMbr) { 	//마이페이지에서 회원 탈퇴실행 및 실행결과 뿌리기
+		return null;
+	}
+	
+	public String findIdPw() {									//ID&PW 화면 띄우기(viewName)
+		return null;
+	}
+	
+	public String findID(Model model, MbrDto dtoMbr) {			//ID찾기 실행 및 결과 뿌리기
+		return null;
+	}
+	
+	public String findPW(Model model, MbrDto dtoMbr) { 			//PW찾기 실행 및 결과 뿌리기
+		return null;
+	}
+	
+}

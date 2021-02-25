@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webProject.mvc01.ICmmntyRDao" >
+
+<!-- === 전체조회 === -->
+	<select id="sltAll" resultType="cmmntyDto" parameterType="cmmntyDto">
+		SELECT   ROWNUM   RNUM, B.*
+		FROM   ( SELECT   B.*, M.MEM_NAME
+        		 FROM     BOARD_INFO  B
+            		,     MEMBER_INFO M
+        		 WHERE    B.MEM_NUM = M.MEM_NUM
+        		 AND      B.CTGR_NO = #{ctgr_no}
+        		 ORDER BY TO_NUMBER(B.BOD_NO) ASC ) B
+        ORDER BY TO_NUMBER(RNUM) DESC, TO_NUMBER(B.BOD_NO) DESC
+	</select>
+<!-- === 게시글보기, 게시글 번호로 단건조회=== -->
+	<select id="sltPost" resultType="cmmntyDto" parameterType="cmmntyDto">
+		SELECT * 
+		FROM   ( SELECT B.*, M.MEM_NAME
+         		 FROM   BOARD_INFO  B
+            		,   MEMBER_INFO M
+         		 WHERE  B.MEM_NUM = M.MEM_NUM )
+		WHERE  BOD_NO = #{bod_no}
+	</select>
+<!-- === 조회수 === -->
+	<update id="updateCnt" parameterType="cmmntyDto">
+		UPDATE BOARD_INFO 
+		SET    BOD_CNT = #{bod_cnt} 
+		WHERE  BOD_NO = #{bod_no}
+	</update>
+<!-- === 댓글조회 === -->
+	<select id="sltCmt" resultType="cmtDto" parameterType="cmtDto">
+		SELECT CMT.*, M.MEM_NAME, M.MEM_ID
+		FROM   ( SELECT C.*, B.MEM_NUM
+		         FROM   COMMENTS   C
+		            , 	BOARD_INFO B
+		         WHERE  C.BOD_NO = B.BOD_NO) CMT
+		    ,  MEMBER_INFO M
+		WHERE  CMT.MEM_NUM = M.MEM_NUM 
+		AND    BOD_NO = #{bod_no}
+	</select>	
+
+
+<!-- === 게시글 수정 ===
+	<update id="cmmntyUpdate" parameterType="cmmntyDto">
+		UPDATE BOARD_INFO 
+		SET    BOD_TITLE = #{bod_title}, 
+			   BOD_TEXT  = #{bod_title} 
+	    WHERE  BOD_NO    = #{bod_no}
+	</update> -->
+
+
+<!-- 	<select id="fimdId" resultType="mbrDto">
+		SELECT * FROM MEMBER_INFO
+	</select>
+	
+	<select id="findPw" resultType="mbrDto">
+		SELECT * FROM MEMBER_INFO
+	</select>
+	
+	<select id="mbrCodeMax" resultType="mbrDto">
+		SELECT * FROM MEMBER_INFO
+	</select>
+	
+	<insert id="mbrInsert" parameterType="mbrDto">
+		INSERT INTO MEMBER_INFO VALUES (#{id}, #{pw}, #{name}, #{tel} )
+	</insert>
+
+	<update id="mbrUpdate">
+		UPDATE MEMBER_INFO SET TEL = #{tel} WHERE ID = #{id}
+	</update>
+
+	<delete id="mbtDelete">
+		DELETE FROM MEMBER_INFO WHERE ID = #{id}
+	</delete> -->
+
+</mapper>
+

@@ -1,0 +1,21 @@
+package com.webProject.mvc01;
+
+
+//회원관리 DAO
+public interface IMemberDao {
+
+	MbrDto mbrSltOne(MbrDto mbrDto);	//ID중복 조회, 로그인 실행, 마이페이지 조회
+	
+	MbrDto fimdId(String name, String birth, String tel); 	//id찾기
+	
+	MbrDto findPw(String id, String birth, String tel);		//pw찾기
+	
+	int mbrCodeMax(int mbrCode);	//회원코드 max값 찾기
+	
+	int mbrInsert(MbrDto mbrDto);	//회원가입 실행
+	
+	int mbrUpdate(MbrDto mbrDto);	//회원수정 실행
+	
+	int mbtDelete(MbrDto mbrDto);	//회원탈퇴 실행
+	
+}

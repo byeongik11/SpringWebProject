@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webProject.mvc01.ICommentCUDDao" >
+
+<!-- === 댓글 cmt_no Max 조회 === -->
+	<!-- <select id="cmtNoMax" resultType="int" >
+		SELECT NVL(MAX(TO_NUMBER(BOD_NO)),0) FROM COMMENTS
+	</select> -->
+
+<!-- === 댓글 등록 === -->
+	<insert id="cmtInsert" parameterType="cmtDto">
+		INSERT INTO COMMENTS
+		VALUES ( #{bod_no}
+			    ,#{cmt_no}
+			    ,#{mem_num}
+			    ,#{prt_cmtno}
+			    ,#{cmt_lvl}
+			    ,#{cmt_text}
+			    ,#{cmt_date} )
+	</insert>	
+
+</mapper>
+

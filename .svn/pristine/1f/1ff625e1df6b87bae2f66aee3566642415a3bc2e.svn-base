@@ -1,0 +1,45 @@
+package com.webProject.mvc01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+//동행자 게시판 조회, 글 등록, 수정, 삭제
+@Controller
+public class BoardGroupCtrl {
+
+	//동행자
+	@RequestMapping("groupBoard.do")
+	public String getGroupBoard(Model model) {						//동행자게시판 화면 및 등록 게시글 조회 결과 뿌리기
+		return "groupBoard";
+	}
+	
+/*	public String groupSltAll(Model model) {	//동행자 게시판 전체 게시글 sltAll( ↑ 같은기능)
+		return null;
+	}*/
+	
+	public String groupSltChk(Model model) {						//조건검색(제목, 작성자, )
+		return null;
+	}
+	
+	public String groupRgt() {										//동행자 등록 화면 띄우기(viewName)
+		return null;
+	}
+	
+	public String groupResult(Model model, BoardInfoDto dtoBoard) {		//동행자 게시글 등록 결과 뿌리기
+		return null;
+	}
+	
+	public String groupRgtInsert(Model model, BoardInfoDto dtoBoard) {	//동행자 게시글 등록 실행 및 실행결과 뿌리기
+		return null;
+	}
+	
+	public String groupRgtUpdate(Model model, BoardInfoDto dtoBoard) {	//동행자 게시글 수정 실행 및 실행결과 뿌리기
+		return null;
+	}
+	
+	public String groupRgtDelete(Model model, BoardInfoDto dtoBoard) {	//동행자 게시글 삭제 실행 및 실행결과 뿌리기
+		return null;
+	} 
+}

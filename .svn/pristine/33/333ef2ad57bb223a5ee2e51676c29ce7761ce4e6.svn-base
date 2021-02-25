@@ -1,0 +1,37 @@
+package com.webProject.mvc01;
+
+import org.springframework.ui.Model;
+
+public class BoardRSvcImpl implements IBoardRSvc{
+
+	@Override
+	public String sltAll(Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String sltChkTitleAll(Model model, int ctgryNo, String title) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String sltChkAreaAll(Model model, int ctgryNo, String trvArea) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String sltChkMbrCodeAll(Model model, int ctgryNo, String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String boardData(Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

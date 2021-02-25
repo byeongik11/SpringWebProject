@@ -1,0 +1,207 @@
+.feature-grid .feature:nth-child(odd) .content, .feature-grid .feature:nth-child(odd) .image {
+    float: right;
+    margin-right: 5%;
+    text-align: right;
+}
+.feature-grid .feature .image {
+    width: 30%;
+}
+.image.rounded {
+    border-radius: 100%;
+}
+.image.rounded img {
+    border: solid 0.5em rgba(144, 144, 144, 0.25);
+    border-radius: 100%;
+}
+
+.image {
+    border-radius: 4px;
+    border: 0;
+    display: inline-block;
+    position: relative;
+}
+.image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+user agent stylesheet
+div {
+    display: block;
+}
+@media screen and (max-width: 1280px)
+body, input, select, textarea {
+    font-size: 11pt;
+}
+@media screen and (max-width: 1680px)
+body, input, select, textarea {
+    font-size: 11pt;
+}
+body, input, select, textarea {
+    font-family: "Raleway", Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    font-weight: 400;
+    line-height: 2em;
+}
+body {
+    background-color: #fff;
+    color: #666;
+}
+body {
+    -webkit-text-size-adjust: none;
+}
+body {
+    line-height: 1;
+}
+user agent stylesheet
+html {
+    color: -internal-root-color;
+}
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+@media screen and (max-width: 1280px)
+.feature-grid .feature {
+    margin-bottom: 2em;
+}
+.feature-grid .feature {
+    display: inline-block;
+    float: left;
+    margin-bottom: 3em;
+    width: 50%;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+user agent stylesheet
+div {
+    display: block;
+}
+@media screen and (max-width: 1280px)
+body, input, select, textarea {
+    font-size: 11pt;
+}
+@media screen and (max-width: 1680px)
+body, input, select, textarea {
+    font-size: 11pt;
+}
+body, input, select, textarea {
+    font-family: "Raleway", Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    font-weight: 400;
+    line-height: 2em;
+}
+body {
+    background-color: #fff;
+    color: #666;
+}
+body {
+    -webkit-text-size-adjust: none;
+}
+body {
+    line-height: 1;
+}
+user agent stylesheet
+html {
+    color: -internal-root-color;
+}
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.feature-grid .feature:nth-child(odd) .content, .feature-grid .feature:nth-child(odd) .image {
+    float: right;
+    margin-right: 5%;
+    text-align: right;
+}
+.feature-grid .feature:nth-child(even) .content, .feature-grid .feature:nth-child(even) .image {
+    float: left;
+    margin-left: 5%;
+    text-align: left;
+}
+body, input, select, textarea {
+    font-family: "Raleway", Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    font-weight: 400;
+    line-height: 2em;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+@font-face
+{
+	font-family: 'Jua', sans-serif;
+	src: url('https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean');
+
+}
+
+p{
+	text-align: center;
+}
+img
+{
+	border:100px;
+	width:700px;
+	height:600px;
+}
+#info
+{
+	color:#819FF7;
+	padding:0em;
+	font-family: 'Jua', sans-serif;
+	font-size:19px;
+}
+#title
+{
+	font-family: 'Jua', sans-serif;
+	font-size:40px;
+	font-weight: bold;
+}
+
+
+
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 단건조회 / 등록 / 수정 / 삭제 -->
+<mapper namespace="com.webProject.mvc01.IDetailCUDDao">
+	
+	<select id="sltOneDetail" resultType="boardDto">
+		SELECT * FROM TRAVEL_INFO
+	</select>
+	
+	<insert id="insertDetail" parameterType="boardDto" >
+		INSERT INTO TRAVEL_INFO VALUES ( #{textNo}, #{startDate}, #{endDate}, #{trvArea}
+										,#{trvAreaDtail}, #{cost}, #{myBest}, #{myWorst}
+										,#{max}, #{trans}, #{etc} )
+	</insert>
+	
+</mapper>
+

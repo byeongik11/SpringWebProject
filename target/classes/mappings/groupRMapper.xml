@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 단건조회 / 등록 / 수정 / 삭제 -->
+<mapper namespace="com.webProject.mvc01.IGroupRDao">
+
+	<select id="sltJoinTotal" parameterType="groupDto" resultType="groupDto">
+		SELECT * FROM GROUP_INFO WHERE BOD_NO = #{bod_no}
+	</select>
+	
+</mapper>
+
+<!-- <![CDATA[내용]]> 은 부등호를 태그가 아닌 문자로 인식하기 위한것-->

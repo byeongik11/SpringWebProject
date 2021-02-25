@@ -1,0 +1,46 @@
+package com.webProject.mvc01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+//일반 게시판 조회, 글 등록, 수정, 삭제
+@Controller
+public class BoardCommonCtrl {
+
+	//게시판
+	@RequestMapping("communityBoard.do")
+	public String getCommunity(Model model) {						//커뮤니티 화면 및 등록 게시글 조회 결과 뿌리기
+		return "communityBoard";
+	}
+	
+/*	public String boardSltAll(Model model) {	//커뮤니티 전체 게시글 sltAll( ↑ 같은기능)
+		return null;
+	}*/
+	
+	public String boardSltChk(Model model) {						//조건검색(제목, 작성자, )
+		return null;
+	}
+	
+	public String boardRgt() {										//커뮤니티 등록 화면 띄우기(viewName)
+		return null;	
+	}
+	
+	public String boardResult(Model model, BoardInfoDto dtoBoard) {		//커뮤니티 게시글 등록 결과 뿌리기
+		return null;
+	}
+	
+	public String boardRgtInsert(Model model, BoardInfoDto dtoBoard) {	//커뮤니티 게시글 등록 실행 및 실행결과 뿌리기
+		return null;
+	}
+	
+	public String boardRgtUpdate(Model model, BoardInfoDto dtoBoard) {	//커뮤니티 게시글 수정 실행 및 실행결과 뿌리기
+		return null;	
+	}
+	
+	public String boardRgtDelete(Model model, BoardInfoDto dtoBoard) {	//커뮤니티 게시글 삭제 실행 및 실행결과 뿌리기
+		return null;
+	}
+	
+}

@@ -1,0 +1,15 @@
+package com.webProject.mvc01;
+
+import java.util.HashMap;
+
+import org.springframework.ui.Model;
+
+public interface IBoardSvc {
+
+	String boardInsert(Model model, HashMap<String, Object> dataHm);		//글등록
+	
+	String boardUpdate(int gubun, Model model, BoardInfoDto dtoBoard);		//글수정
+	
+	String boardDelete(int gubun, Model model, BoardInfoDto dtoBoard);		//글삭제
+	
+}

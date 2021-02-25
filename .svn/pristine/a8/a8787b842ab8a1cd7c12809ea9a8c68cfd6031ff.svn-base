@@ -1,0 +1,17 @@
+package com.webProject.mvc01;
+
+import java.util.ArrayList;
+
+public interface IBoardRDao {
+	
+	ArrayList<BoardInfoDto> sltAll();									//전체조회
+	
+	ArrayList<BoardInfoDto> sltChkTitleAll(int ctgryNo, String title);	//조건조회:제목
+	
+	ArrayList<BoardInfoDto> sltChkAreaAll(int ctgryNo, String trvArea);	//조건조회:여행지 대분류
+	
+	ArrayList<BoardInfoDto> sltChkMbrCodeAll(int ctgryNo, String id);	//조건조회:작성자(회원ID)
+	
+	BoardInfoDto boardData(int ctgryNo, int textNo);					//클릭한 게시글 결과 뿌리기
+	
+}

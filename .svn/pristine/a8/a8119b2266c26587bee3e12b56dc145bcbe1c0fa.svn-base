@@ -1,0 +1,81 @@
+package com.webProject.mvc01;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+@Service("mbrSvc")
+public class MemberSvcImpl implements IMemberSvc{
+
+	@Autowired
+	private IMemberDao mbrDao;
+	
+	@Override	//마이페이지 조회(id로 sltOne 처리)
+	public String mbrSelect(Model model, String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override	//회원가입
+	public String mbrInsert(Model model, MbrDto mbrDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override	//회원정보 수정
+	public String mbrUpdate(Model model, MbrDto mbrDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override	//회원탈퇴
+	public String mbrDelete(Model model, int mbrCode) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override	//ID찾기
+	public String searchID(Model model, MbrDto mbrDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override	//PW찾기
+	public String searchPW(Model model, MbrDto mbrDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String login(Model model, HttpSession session, MbrDto mbrDto) {
+		
+		MbrDto mbrDtoDB = mbrDao.mbrSltOne(mbrDto);
+		
+/*		System.out.println(mbrDto.getMem_id() + mbrDto.getMem_pw());
+		System.out.println(mbrDtoDB.getMem_id() + mbrDtoDB.getMem_pw());*/
+		
+		String pw1 = mbrDto.getMem_pw();	//로그인 PW
+		String pw2 = mbrDtoDB.getMem_pw();	//DB   PW
+/*		String name = mbrDtoDB.getMem_name();*/
+		
+		if(mbrDtoDB != null && pw1.equals(pw2))
+		{
+			session.setAttribute("LOGIN", mbrDtoDB); 
+			/*session.setAttribute("ID", mbrDtoDB.getMem_id());*/
+			
+		/*	session.setAttribute("ID", mbrDtoDB.getMem_id());
+			session.setAttribute("PW", mbrDtoDB.getMem_pw());
+			session.setAttribute("NAME", mbrDtoDB.getMem_name());*/
+			return "mainAfterlogin";
+		}
+		else
+		{
+			String msg = "0";
+			model.addAttribute("MSG", msg);
+			return "forward:login";				//로그인 실패
+		}
+	}
+	
+}

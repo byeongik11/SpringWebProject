@@ -1,0 +1,111 @@
+package com.webProject.mvc01;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+@Service("boardSvc")
+public class BoardSvcImpl implements IBoardSvc {
+
+	@Autowired
+	IBoardCUDDao cudDao;
+	@Autowired
+	IDetailCUDDao dtCudDao;
+	
+	@Override
+	public String boardInsert(Model model, HashMap<String, Object> dataHm) {
+		String viewName = "abroadWrite";
+		
+		//데이터 꺼내기
+		int gubun 	 		  = (int) 	 	   dataHm.get("gubun");
+		MbrDto mbrDto 		  = (MbrDto) 	   dataHm.get("loginData");
+		BoardInfoDto dtoBoard = (BoardInfoDto) dataHm.get("boardData");
+		
+		//글번호
+		int maxNum = cudDao.sltMaxNum();
+		int newNum = maxNum + 1;
+		
+		//작성자
+		int mbrCode = mbrDto.getMem_num();
+		
+		//작성일
+		Calendar cal = Calendar.getInstance();
+	    SimpleDateFormat dateFmt = new SimpleDateFormat("yyyyMMddhhmm");
+	    String date = dateFmt.format(cal.getTime());
+
+	    //게시판 테이블 데이터 셋
+		dtoBoard.setTextNo(newNum);		//BOD_NO		(글번호)
+		dtoBoard.setMbrCode(mbrCode);	//MEM_NUM		(작성자)
+	    dtoBoard.setDate(date);			//BOD_DATE		(작성일)
+		dtoBoard.setCtgryNo(gubun);		//CTGR_NO		(카테고리 번호)
+		dtoBoard.setCnt(0);				//BOD_CNT 		(조회수 	default:0)
+		dtoBoard.setDelChk(1);			//BOD_DELCHK	(삭제여부	default:1)
+		
+		
+		BoardInfoDto resBDto  = cudDao.sltOne(newNum);	// 등록하기 전 단건 조회
+		
+		if(resBDto != null) {
+			model.addAttribute("MSG", "데이터가 존재 합니다.");
+			return viewName;
+		}
+		
+		int res  = cudDao.insertBoard(dtoBoard);		// 게시글 등록
+		
+		if(res <= 0) {
+			System.out.println("등록 불가!");
+			model.addAttribute("MSG", "데이터 등록에 실패하였습니다.");
+			
+			return viewName;
+		}
+		else {
+			System.out.println("게시판 테이블에 등록 성공!");
+		}
+		
+		//세부정보 셋
+		String srtDate = dtoBoard.getStartDate();
+	    String nSrtDate = srtDate.replaceAll("-", "");
+		String endDate = dtoBoard.getEndDate();
+	    String nEndDate = endDate.replaceAll("-", "");
+	    
+		dtoBoard.setStartDate(nSrtDate);
+		dtoBoard.setEndDate(nEndDate);
+		
+		dtoBoard.setMax("-");
+		dtoBoard.setTrans("-");
+		dtoBoard.setEtc("-");
+		
+		int resD = dtCudDao.insertDetail(dtoBoard);		// 세부정보 등록
+		
+		if(resD <= 0) {
+			System.out.println("등록 불가!");
+			model.addAttribute("MSG", "데이터 등록에 실패하였습니다.");
+			
+			return viewName;
+		}
+		else {
+			System.out.println("세부정보 등록 성공!");
+		}
+		model.addAttribute("MSG", "글을 등록하였습니다.");
+		
+		viewName = "abroadBoard";	//성공시
+				
+		return viewName;
+	}
+
+	@Override
+	public String boardUpdate(int gubun, Model model, BoardInfoDto dtoBoard) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String boardDelete(int gubun, Model model, BoardInfoDto dtoBoard) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

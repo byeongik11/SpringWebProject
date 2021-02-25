@@ -1,0 +1,13 @@
+package com.webProject.mvc01;
+
+public interface IDetailCUDDao {
+	
+	BoardInfoDto sltOneDetail(int textNo);
+	
+	int insertDetail(BoardInfoDto dtoBoard);				//게시글 등록
+		
+	int updateDetail(BoardInfoDto dtoBoard);				//게시글 변경
+	
+	int deleteDetail(int ctgryNo, int textNo);		//게시글 삭제
+
+}

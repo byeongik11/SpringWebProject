@@ -1,0 +1,12 @@
+package com.webProject.mvc01;
+
+public interface IGroupBoardDao {
+
+	 GroupDto sltOneGroup(int ctgryNo, int textNo, int joinNo);	//신청 및 취소 전에 sltOne
+	
+	int insertGroup(GroupDto dtoGroup);							//동행자 참가 신청
+	
+	int deleteGroup(int ctgryNo, int textNo, int joinNo);		//동행자 참가 취소
+
+}
+

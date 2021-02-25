@@ -1,0 +1,33 @@
+package com.webProject.mvc01;
+
+import java.util.ArrayList;
+
+public interface IGroupRDao {
+	
+	GroupDto sltOneGroup(int ctgryNo, int textNo, int joinNo);	//신청 및 취소 전에 sltOne
+	
+	int insertGroup(GroupDto dtoGroup);							//동행자 참가 신청
+	
+	int deleteGroup(int ctgryNo, int textNo, int joinNo);		//동행자 참가 취소
+
+	//페이지 목록 조회
+	int sltPageMax(PageInfoDto page);								//게시글 갯수 조회
+	
+	ArrayList<BoardInfoDto> sltPageIndex(PageInfoDto page);			//해당 페이지 목록 가져오기	
+	
+	//전체 검색 조회
+	int sltAllMax(PageInfoDto page);								//조건 조회 : 전체검색 갯수 조회
+	
+	ArrayList<BoardInfoDto> sltAllIndex(PageInfoDto page);			//조건 조회 : 전체검색
+	
+	//제목 검색 조회
+	int sltTitleMax(PageInfoDto page);								//조건 조회 : 제목검색 갯수 조회
+	
+	ArrayList<BoardInfoDto> sltTitleIndex(PageInfoDto page);		//조건 조회 : 제목으로 검색
+	
+	//작성자 검색 조회
+	int sltWriterMax(PageInfoDto page);								//조건 조회 : 작성자검색 갯수 조회
+	
+	ArrayList<BoardInfoDto> sltWriterIndex(PageInfoDto page);		//조건 조회 : 작성자로 검색
+
+}

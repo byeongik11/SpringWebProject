@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webProject.mvc01.ICommentRDao" >
+
+<!-- === 댓글 cmt_no Max 조회 === -->
+	<select id="cmtNoMax" resultType="int" >
+		<!-- SELECT NVL(MAX(TO_NUMBER(CMT_NO)),0) FROM COMMENTS -->
+		SELECT (NVL(MAX(TO_NUMBER(CMT_NO)),0)+1) FROM COMMENTS
+	</select>
+	
+<!-- === 댓글 레벨 === -->
+	<select id="cmtLvl" resultType="int" parameterType="cmtDto" >
+		SELECT (NVL(MAX(TO_NUMBER(CMT_LVL)),0) + 1)
+		FROM	COMMENTS
+		WHERE	PRT_CMTNO = #{prt_cmtno}
+	</select>
+
+<!-- === 댓글 단건 조회 === -->
+	<select id="sltCmtNo" resultType="cmtDto" parameterType="cmtDto">
+		SELECT * FROM COMMENTS WHERE CMT_NO = #{cmt_no}
+	</select>
+
+<!-- === 댓글조회 === -->
+	<select id="sltCmtAll" resultType="cmtDto" parameterType="cmtDto">
+		<!-- SELECT CMT.*, M.MEM_NAME, M.MEM_ID
+		FROM   ( SELECT C.*
+		         FROM   COMMENTS   C
+		            , 	BOARD_INFO B
+		         WHERE  C.BOD_NO = B.BOD_NO) CMT
+		    ,  MEMBER_INFO M
+		WHERE  CMT.MEM_NUM = M.MEM_NUM 
+		AND    BOD_NO = #{bod_no} -->
+		
+		SELECT C.*, M.MEM_NAME, M.MEM_ID
+		FROM   COMMENTS C
+		    ,  MEMBER_INFO M
+		WHERE  C.MEM_NUM = M.MEM_NUM 
+		AND    BOD_NO = #{bod_no}
+		
+	<!-- 	SELECT 	 * 
+		FROM   	 COMMENTS 
+		WHERE  	 PRT_CMTNO #{prt_cmtno}
+		OR     	 CMT_NO = #{cmt_no}
+		ORDER BY CMT_LVL -->
+		
+	</select>	
+
+</mapper>
+

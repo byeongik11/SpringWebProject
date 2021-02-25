@@ -1,0 +1,63 @@
+table{
+	margin:auto;
+}
+.alines{
+	text-align: -webkit-center;
+}
+#inputLoc{
+	width: 300px;	
+	border-radius: 0px;
+}
+.headline{
+	color: skyblue;
+	text-align: center;	
+}
+.conwrap{
+	text-align: center;
+}
+.tableth{
+	text-align: right;
+}
+#inputTitle{
+	width: 500px;
+	height: 30px;
+}
+tr{
+	height: 3em;
+}
+#inputSDate{
+	height: 30px;
+	margin-right: 3em;
+}
+#inputEDate{
+	height: 30px;
+	margin-left: 3em;
+}
+
+#inputTip{
+	min-height: 300px;
+}
+
+.taContent{
+	border-radius: 0px;
+	
+}
+#inputLoc{
+	padding:10px;
+}
+.buttons{
+	text-align: center;
+	padding:30px;
+}
+#inputTitle, #inputSDate, #inputLocDtl{
+	height: 30px;
+}
+#inputTitle, #inputSDate, #inputLoc, #input, #inputLocDtl, #inputTrans, #inputEtc{
+	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-left: 30px;
+}
+button{
+	margin-left: 15px;
+	margin-right: 15px;
+}

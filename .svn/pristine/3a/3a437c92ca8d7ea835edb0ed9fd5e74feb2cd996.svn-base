@@ -1,0 +1,17 @@
+package com.webProject.mvc01;
+
+public interface IBoardCUDDao {
+	
+	BoardInfoDto sltOne(int bodNo);					// 단건 조회
+		
+	int sltMaxNum();								// 글번호 MAX값 조회
+	
+	int insertBoard(BoardInfoDto dtoBoard);			//게시글 등록
+		
+	int updateBoard(BoardInfoDto dtoBoard);			//게시글 변경
+	
+	int updateCnt(int cnt);							// 조회수 +1
+//	
+	int deleteBoard(int ctgryNo, int textNo);		//게시글 삭제
+
+}

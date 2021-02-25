@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webProject.mvc01.ICmmntyRDao" >
+
+<!-- === 전체조회 === -->
+	<select id="sltAll" resultType="cmmntyDto" parameterType="cmmntyDto">
+		SELECT   ROWNUM   RNUM, B.*
+		FROM   ( SELECT   B.*, M.MEM_NAME
+        		 FROM     BOARD_INFO  B
+            		,     MEMBER_INFO M
+        		 WHERE    B.MEM_NUM = M.MEM_NUM
+        		 AND      B.CTGR_NO = #{ctgr_no}
+        		 ORDER BY TO_NUMBER(B.BOD_NO) ASC ) B
+        ORDER BY TO_NUMBER(RNUM) DESC, TO_NUMBER(B.BOD_NO) DESC
+	</select>
+<!-- === 게시글보기, 게시글 번호로 단건조회=== -->
+	<select id="sltPost" resultType="cmmntyDto" parameterType="cmmntyDto">
+		SELECT * 
+		FROM   ( SELECT B.*, M.MEM_NAME
+         		 FROM   BOARD_INFO  B
+            		,   MEMBER_INFO M
+         		 WHERE  B.MEM_NUM = M.MEM_NUM )
+		WHERE  BOD_NO = #{bod_no}
+	</select>
+<!-- === 조회수 === -->
+	<update id="updateCnt" parameterType="cmmntyDto">
+		UPDATE BOARD_INFO 
+		SET    BOD_CNT = #{bod_cnt} 
+		WHERE  BOD_NO = #{bod_no}
+	</update>
+<!-- === 댓글조회 === -->
+<!-- 	<select id="sltCmt" resultType="cmtDto" parameterType="cmtDto">
+		SELECT CMT.*, M.MEM_NAME, M.MEM_ID
+		FROM   ( SELECT C.*, B.MEM_NUM
+		         FROM   COMMENTS   C
+		            , 	BOARD_INFO B
+		         WHERE  C.BOD_NO = B.BOD_NO) CMT
+		    ,  MEMBER_INFO M
+		WHERE  CMT.MEM_NUM = M.MEM_NUM 
+		AND    BOD_NO = #{bod_no}
+	</select>	 -->
+
+
+	<!--============= 상혁 작업 ===============-->
+	<select id="sltPageMax" parameterType="pageDto" resultType="int">
+		SELECT COUNT(*) FROM BOARD_INFO WHERE CTGR_NO = #{gubun}
+	</select>
+
+	<select id="sltPageIndex" parameterType="pageDto" resultType="cmmntyDto"> 
+		<![CDATA[
+		SELECT  * 
+		FROM ( SELECT ROWNUM RNUM				-- 로우 넘버
+		            , S.*						-- 결과값 전체 출력	
+		            	            
+			   FROM ( SELECT BOD_NO				-- 글 번호	
+			   			   , B.MEM_NUM          -- 작성자 번호
+			   			   , MEM_NAME			-- 작성자 이름
+			   			   , CTGR_NO			-- 카테고리 번호
+			   			   , BOD_TITLE 			-- 제목
+						   , REGEXP_REPLACE(BOD_DATE, '(.{4})(.{2})(.{2})(.{2})(.{2})', '\1-\2-\3 \4:\5') BOD_DATE  -- 작성일
+						   , BOD_TEXT			-- 내용
+						   , BOD_CNT			-- 조회수
+						   , BOD_DELCHK 		-- 삭제여부
+						   
+					  FROM BOARD_INFO B						-- 게시판 테이블
+					  
+                      JOIN MEMBER_INFO M					-- 조인 (멤버 테이블)
+                      ON  B.MEM_NUM = M.MEM_NUM 
+                      
+					  WHERE CTGR_NO = #{gubun}				-- 카테고리=?
+					  ORDER BY TO_NUMBER(BOD_NO) DESC 		-- 내림차순 정렬(글번호 기준)
+					)S 
+             ) 
+        WHERE  RNUM   >= #{startData}		-- 시작번호
+        AND    ROWNUM <= #{listCnt}			-- 보여줄 리스트 갯수
+        ORDER BY TO_NUMBER(RNUM) ASC		-- 오름차순 정렬 (만들어진 리스트)
+        ]]>
+	</select>
+	
+	
+	<!-- 조건 조회 -->
+	<!-- 전체 검색 -->
+	
+	<select id="sltAllMax" parameterType="pageDto" resultType="int"> 
+		SELECT  COUNT(*) 
+		FROM  BOARD_INFO B
+	    JOIN  MEMBER_INFO M
+	    ON    B.MEM_NUM = M.MEM_NUM
+		WHERE CTGR_NO = #{gubun}
+        AND (   BOD_TITLE LIKE '%${titleText}%' 
+             OR MEM_NAME  LIKE '%${writerText}%')
+	</select>
+	
+	<select id="sltAllIndex" parameterType="pageDto" resultType="cmmntyDto"> 
+		<![CDATA[
+		SELECT  * 
+		FROM ( SELECT ROWNUM RNUM				-- 로우 넘버
+		            , S.*						-- 결과값 전체 출력
+		            
+			   FROM ( SELECT BOD_NO				-- 글 번호
+			   			   , B.MEM_NUM          -- 작성자 번호	
+			   			   , MEM_NAME			-- 작성자 이름
+			   			   , CTGR_NO			-- 카테고리 번호
+			   			   , BOD_TITLE 			-- 제목
+						   , REGEXP_REPLACE(BOD_DATE, '(.{4})(.{2})(.{2})(.{2})(.{2})', '\1-\2-\3 \4:\5') BOD_DATE  -- 작성일
+						   , BOD_TEXT			-- 내용
+						   , BOD_CNT			-- 조회수
+						   , BOD_DELCHK 		-- 삭제여부
+						   
+					  FROM BOARD_INFO B						-- 게시판 테이블
+					  
+                      JOIN MEMBER_INFO M					-- 조인 (멤버 테이블)
+                      ON  B.MEM_NUM = M.MEM_NUM 
+                      
+					  WHERE CTGR_NO = #{gubun}				-- 카테고리=?
+                      AND ( 	BOD_TITLE LIKE '%${titleText}%'		-- 타이틀 검색
+                      		OR	MEM_NAME  LIKE '%${writerText}%'  )	-- 작성자 검색
+					  ORDER BY TO_NUMBER(BOD_NO) DESC 		-- 내림차순 정렬(글번호 기준)
+					)S                			
+             ) 
+        WHERE  RNUM   >= #{startData}		-- 시작번호
+        AND    ROWNUM <= #{listCnt}			-- 보여줄 리스트 갯수
+        ORDER BY TO_NUMBER(RNUM) ASC		-- 오름차순 정렬 (만들어진 리스트)
+        ]]>
+	</select>
+	
+	
+	<!-- 제목 검색 -->
+	<select id="sltTitleMax" parameterType="pageDto" resultType="int"> 
+		SELECT COUNT(*)
+		FROM   BOARD_INFO 
+		WHERE  CTGR_NO = #{gubun} 
+		AND    BOD_TITLE LIKE '%${titleText}%'
+	</select>
+	
+	<select id="sltTitleIndex" parameterType="pageDto" resultType="cmmntyDto"> 
+        <![CDATA[
+        SELECT  * 
+		FROM ( SELECT ROWNUM RNUM				-- 로우 넘버
+		            , S.*						-- 결과값 전체 출력
+		            
+			   FROM ( SELECT BOD_NO				-- 글 번호
+			   			   , B.MEM_NUM          -- 작성자 번호	
+			   			   , MEM_NAME			-- 작성자 이름
+			   			   , CTGR_NO			-- 카테고리 번호
+			   			   , BOD_TITLE 			-- 제목
+						   , REGEXP_REPLACE(BOD_DATE, '(.{4})(.{2})(.{2})(.{2})(.{2})', '\1-\2-\3 \4:\5') BOD_DATE  -- 작성일
+						   , BOD_TEXT			-- 내용
+						   , BOD_CNT			-- 조회수
+						   , BOD_DELCHK 		-- 삭제여부
+						   
+					  FROM BOARD_INFO B						-- 게시판 테이블
+					  
+                      JOIN MEMBER_INFO M					-- 조인 (멤버 테이블)
+                      ON  B.MEM_NUM = M.MEM_NUM 
+                      
+					  WHERE CTGR_NO = #{gubun}				-- 카테고리=?
+                      AND   BOD_TITLE LIKE '%${titleText}%'	-- 타이틀 검색
+					  ORDER BY TO_NUMBER(BOD_NO) DESC 		-- 내림차순 정렬(글번호 기준)
+					)S                			
+             ) 
+        WHERE  RNUM   >= #{startData}		-- 시작번호
+        AND    ROWNUM <= #{listCnt}			-- 보여줄 리스트 갯수
+        ORDER BY TO_NUMBER(RNUM) ASC		-- 오름차순 정렬 (만들어진 리스트)
+        ]]>
+	</select>
+	
+	
+	<!-- 작성자 검색 -->
+	<select id="sltWriterMax" parameterType="pageDto" resultType="int"> 
+		SELECT COUNT(*) 
+		FROM   BOARD_INFO B 
+		JOIN   MEMBER_INFO M
+        ON     B.MEM_NUM = M.MEM_NUM
+        WHERE  CTGR_NO = #{gubun}
+		AND    MEM_NAME  LIKE '%${writerText}%'
+	</select>
+	
+	<select id="sltWriterIndex" parameterType="pageDto" resultType="cmmntyDto"> 
+	<![CDATA[
+	SELECT  * 
+		FROM ( SELECT ROWNUM RNUM				-- 로우 넘버
+		            , S.*						-- 결과값 전체 출력
+		            
+			   FROM ( SELECT BOD_NO				-- 글 번호
+			   			   , B.MEM_NUM          -- 작성자 번호	
+			   			   , MEM_NAME			-- 작성자 이름
+			   			   , CTGR_NO			-- 카테고리 번호
+			   			   , BOD_TITLE 			-- 제목
+						   , REGEXP_REPLACE(BOD_DATE, '(.{4})(.{2})(.{2})(.{2})(.{2})', '\1-\2-\3 \4:\5') BOD_DATE  -- 작성일
+						   , BOD_TEXT			-- 내용
+						   , BOD_CNT			-- 조회수
+						   , BOD_DELCHK 		-- 삭제여부
+						   
+					  FROM BOARD_INFO B						 -- 게시판 테이블
+					  
+                      JOIN MEMBER_INFO M					 -- 조인 (멤버 테이블)
+                      ON  B.MEM_NUM = M.MEM_NUM 
+                      
+					  WHERE CTGR_NO = #{gubun}				 -- 카테고리=?
+                      AND   MEM_NAME  LIKE '%${writerText}%' -- 작성자 검색
+					  ORDER BY TO_NUMBER(BOD_NO) DESC 		 -- 내림차순 정렬(글번호 기준)
+					)S                			
+             ) 
+        WHERE  RNUM   >= #{startData}		-- 시작번호
+        AND    ROWNUM <= #{listCnt}			-- 보여줄 리스트 갯수
+        ORDER BY TO_NUMBER(RNUM) ASC		-- 오름차순 정렬 (만들어진 리스트)
+        ]]>
+	</select>
+
+	<!--============= 상혁 작업 ===============-->
+
+
+
+<!-- === 게시글 수정 ===
+	<update id="cmmntyUpdate" parameterType="cmmntyDto">
+		UPDATE BOARD_INFO 
+		SET    BOD_TITLE = #{bod_title}, 
+			   BOD_TEXT  = #{bod_title} 
+	    WHERE  BOD_NO    = #{bod_no}
+	</update> -->
+
+
+<!-- 	<select id="fimdId" resultType="mbrDto">
+		SELECT * FROM MEMBER_INFO
+	</select>
+	
+	<select id="findPw" resultType="mbrDto">
+		SELECT * FROM MEMBER_INFO
+	</select>
+	
+	<select id="mbrCodeMax" resultType="mbrDto">
+		SELECT * FROM MEMBER_INFO
+	</select>
+	
+	<insert id="mbrInsert" parameterType="mbrDto">
+		INSERT INTO MEMBER_INFO VALUES (#{id}, #{pw}, #{name}, #{tel} )
+	</insert>
+
+	<update id="mbrUpdate">
+		UPDATE MEMBER_INFO SET TEL = #{tel} WHERE ID = #{id}
+	</update>
+
+	<delete id="mbtDelete">
+		DELETE FROM MEMBER_INFO WHERE ID = #{id}
+	</delete> -->
+
+</mapper>
+

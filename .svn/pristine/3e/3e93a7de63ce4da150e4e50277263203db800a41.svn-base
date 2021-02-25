@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 단건조회 / 등록 / 수정 / 삭제 -->
+<mapper namespace="com.webProject.mvc01.IBoardCUDDao">
+	
+	<select id="sltOne" parameterType="int" resultType="boardDto">
+		SELECT * FROM BOARD_INFO WHERE BOD_NO = #{newNum}
+	</select>
+	
+	<select id="sltMaxNum" resultType="int">
+		SELECT NVL(MAX(TO_NUMBER(BOD_NO)),0) FROM BOARD_INFO
+	</select>
+	
+	<insert id="insertBoard" parameterType="boardDto" >
+		INSERT INTO BOARD_INFO VALUES ( #{textNo}		<!-- 글번호 			-->
+									  , #{mbrCode}		<!-- 작성자 			-->
+									  , #{ctgryNo}		<!-- 카테고리 			-->
+									  , #{title}		<!-- 제목 			-->
+									  , #{date}			<!-- 작성일 			-->
+									  , #{content}		<!-- 내용 			-->
+									  , #{cnt}			<!-- 조회수 (등록시 0) 	-->
+									  , #{delChk}		<!-- 삭제여부(기본 1) 	-->
+									  )
+	</insert>
+	
+</mapper>
+

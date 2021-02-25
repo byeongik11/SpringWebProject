@@ -1,0 +1,105 @@
+package com.webProject.mvc01;
+
+import java.util.HashMap;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+
+//국내&해외 가이드 게시판 조회, 글 등록, 수정, 삭제
+@Controller
+@SessionAttributes("LOGIN")
+public class BoardGuideCtrl {
+
+	@Autowired
+	IBoardSvc boardSvc;
+	
+	//해외
+	@RequestMapping("abroadBoard.do")
+	public String getAbroadBoard(Model model) {						//해외가이드 화면 및 등록 게시글 조회 결과 뿌리기
+		return "abroadBoard";
+	}
+	
+	@RequestMapping("abroadWrite")
+	public String abroadWritePage() {										//해외가이드 등록 화면 띄우기(viewName)
+		return "abroadWrite";
+	}
+	
+/*	public String abroadSltAll(Model model) {	//해외가이드 전체 게시글 sltAll( ↑	 같은기능)
+		return null;
+	}*/
+	
+	public String abroadSltChk(Model model) {						//조건검색(제목, 작성자, )
+		return null;	
+	}
+	
+	
+	public String abroadResult(Model model, BoardInfoDto dtoBoard) {	//해외가이드 게시글 등록 결과 뿌리기
+		return null;				
+	}
+	
+	@RequestMapping("abroadInsert.do")
+	public String abroadInsert(@ModelAttribute("LOGIN") MbrDto mbrDto 
+			, @ModelAttribute("gubun") int gubun , Model model , BoardInfoDto dtoBoard) {	//해외가이드 게시글 등록 실행 및 실행결과 뿌리기
+		
+		System.out.println(gubun);
+		System.out.println(dtoBoard.toString());
+		
+		HashMap<String, Object> dataHm = new HashMap<String, Object>();
+		dataHm.put("gubun", gubun);
+		dataHm.put("loginData", mbrDto);
+		dataHm.put("boardData", dtoBoard);
+		
+		String viewName = boardSvc.boardInsert(model, dataHm);
+		
+		return viewName;
+	}
+	
+	public String abroadRgtUpdate(Model model, BoardInfoDto dtoBoard) {	//해외가이드 게시글 수정 실행 및 실행결과 뿌리기
+		return null;
+	}
+	
+	public String abroadRgtDelete(Model model, BoardInfoDto dtoBoard) {	//해외가이드 게시글 삭제 실행 및 실행결과 뿌리기
+		return null;
+	}
+
+	
+	//국내
+	@RequestMapping("domesticBoard.do")
+	public String getDomesticBoard(Model model) {					//국내가이드 화면 및 등록 게시글 조회 결과 뿌리기
+		return "domesticBoard";
+	}
+	
+/*	public String domesticSltAll(Model model) {	//해외가이드 전체 게시글 sltAll ↑	 같은기능)
+		return null;
+	}*/
+	
+	public String domesticSltChk(Model model) {						//조건검색(제목, 작성자, )
+		return null;	
+	}
+	
+	public String domesticRgt() {									//국내가이드 등록 화면 띄우기(viewName)
+		return null;
+	}
+	
+	public String domesticResult(Model model, BoardInfoDto dtoBoard) {	//국내가이드 게시글 등록 결과 뿌리기
+		return null;				
+	}
+	
+	public String domesticRgtInsert(Model model, BoardInfoDto dtoBoard) {	//국내가이드 게시글 등록 실행 및 실행결과 뿌리기
+		return null;
+	}
+	
+	public String domesticRgtUpdate(Model model, BoardInfoDto dtoBoard) {	//국내가이드 게시글 수정 실행 및 실행결과 뿌리기
+		return null;
+	}
+	
+	public String domesticRgtDelete(Model model, BoardInfoDto dtoBoard) {	//국내가이드 게시글 삭제 실행 및 실행결과 뿌리기
+		return null;
+	}
+	
+}

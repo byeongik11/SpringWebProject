@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 단건조회 / 등록 / 수정 / 삭제 -->
+<mapper namespace="com.webProject.mvc01.IGroupDao">
+	
+	<select id="sltOneGroup" parameterType="groupDto" resultType="groupDto">
+		SELECT * 
+		FROM   GROUP_INFO 
+		WHERE  BOD_NO  = #{bod_no}
+		AND    MEM_NUM = #{mem_num}
+	</select>
+	
+
+	<insert id="insertJoin" parameterType="groupDto">
+		INSERT INTO GROUP_INFO
+		VALUES (#{bod_no}, #{mem_num})
+	</insert>
+	
+	<delete id="deleteJoin" parameterType="groupDto">
+		DELETE FROM GROUP_INFO 
+		WHERE  BOD_NO  = #{bod_no}
+		AND    MEM_NUM = #{mem_num}
+	</delete>
+	
+</mapper>
+

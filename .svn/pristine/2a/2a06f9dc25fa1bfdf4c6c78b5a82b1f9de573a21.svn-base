@@ -1,0 +1,15 @@
+package com.webProject.mvc01;
+
+import java.util.ArrayList;
+
+public interface ICmmntyRDao {
+
+	//게시글 전체 조회
+	ArrayList<CmmntyDto> sltAll(int ctgr_no);
+	//게시글 보기
+	CmmntyDto sltPost(int bod_no);
+	//조회수
+	void updateCnt(CmmntyDto cmmntyDto);
+	//댓글 sltAll
+	ArrayList<CommentDto> sltCmt(int bod_no);
+}

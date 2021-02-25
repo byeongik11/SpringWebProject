@@ -1,0 +1,28 @@
+package com.webProject.mvc01;
+
+import org.springframework.ui.Model;
+
+public interface IBoardRSvc {
+	
+	//국내
+	String sltDomesticPage(Model model, PageInfoDto pageDto);
+		
+	//해외
+	String sltAbroadPage(Model model, PageInfoDto pageDto);	
+	//그룹
+	String sltGroupPage(Model model, PageInfoDto pageDto);
+	//커뮤니티
+	String sltCommunityPage(Model model, PageInfoDto pageDto);
+	
+	String sltAll(Model model);		//전체조회
+	
+	String sltChkTitleAll(Model model, int ctgryNo, String title);	//조건조회:제목
+	
+	String sltChkAreaAll(Model model, int ctgryNo, String trvArea);	//조건조회:여행지 대분류
+	
+	String sltChkMbrCodeAll(Model model, int ctgryNo, String id);	//조건조회:작성자(회원ID)
+	
+	String boardData(Model model);									//클릭한 게시글 결과 뿌리기
+	
+	
+}

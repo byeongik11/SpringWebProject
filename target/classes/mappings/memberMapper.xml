@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webProject.mvc01.IMemberDao">
+
+<!-- === ID로 단건 조회 === -->
+	<select id="mbrIdChk" resultType="mbrDto" parameterType="String">
+		SELECT * FROM MEMBER_INFO WHERE MEM_ID = #{mem_id}
+	</select>
+	
+<!-- === MEM_NUM으로 단건 조회 === -->
+	<select id="mbrSltOne" resultType="mbrDto" parameterType="int">
+		SELECT * FROM MEMBER_INFO WHERE MEM_NUM = #{mem_num}
+	</select>
+	
+<!-- === 회원넘버 MAX === -->
+	<select id="mbrNumMax" resultType="int">
+		SELECT NVL(MAX(TO_NUMBER(MEM_NUM)),0) FROM MEMBER_INFO
+	</select>
+	
+<!-- === ID찾기 === -->
+	<select id="findId" resultType="mbrDto" parameterType="mbrDto">
+		SELECT * 
+		FROM   MEMBER_INFO
+		WHERE  MEM_NAME  = #{mem_name}
+		AND    MEM_BIRTH = #{mem_birth}
+		AND    MEM_TEL   = #{mem_tel}
+	</select>
+	
+<!-- === PW찾기 === -->
+	<select id="findPw" resultType="mbrDto" parameterType="mbrDto">
+		SELECT * 
+		FROM   MEMBER_INFO
+		WHERE  MEM_ID  	 = #{mem_id}
+		AND    MEM_BIRTH = #{mem_birth}
+		AND    MEM_TEL   = #{mem_tel}
+	</select>
+	
+<!-- === 회원가입 === -->
+	<insert id="mbrInsert" parameterType="mbrDto">
+		INSERT INTO MEMBER_INFO 
+		VALUES (  #{mem_num}
+				, #{mem_id}
+				, #{mem_pw}
+				, #{mem_name}
+				, #{mem_birth}
+				, #{mem_sex}
+				, #{mem_adres}
+				, #{mem_tel}
+				, #{mem_email}
+				, #{mem_lvl} )
+	</insert>
+	
+<!-- === 회원수정 === -->
+	<update id="mbrUpdate" parameterType="mbrDto">
+		UPDATE MEMBER_INFO 
+		SET    MEM_PW 	 = #{mem_pw},
+			   MEM_ADRES = #{mem_adres},
+			   MEM_TEL   = #{mem_tel},
+			   MEM_EMAIL = #{mem_email}
+		WHERE  MEM_NUM	 = #{mem_num}
+	</update>
+	
+<!-- === 회원탈퇴 === -->
+	<update id="mbrDelete" parameterType="mbrDto">
+		UPDATE MEMBER_INFO 
+		SET    MEM_LVL   = #{mem_lvl}
+		WHERE  MEM_NUM	 = #{mem_num}
+	</update>
+	
+<!-- 그룹 전용 작성자 조회 -->
+	<select id="sltGroupWriter" parameterType="int" resultType="mbrDto">
+		SELECT MEM_ID
+			 , MEM_NAME
+			 , MEM_TEL
+			 , MEM_EMAIL
+		FROM   MEMBER_INFO 
+		WHERE  MEM_NUM = #{mem_num}
+	</select>
+	
+		
+<!-- === Id 중복조회 === 	
+	<select id="mbrSltId" resultType="mbrDto" parameterType="String">
+		SELECT * FROM MEMBER_INFO WHERE MEM_ID = #{mem_id}
+	</select> -->
+	
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webProject.mvc01.ICmmntyCUDDao" >
+
+<!-- === 게시글번호 MAX === -->
+	<select id="bodNoMax" resultType="int">
+		SELECT NVL(MAX(TO_NUMBER(BOD_NO)),0) FROM BOARD_INFO
+	</select>
+	
+<!-- === 게시글번호 단건조회 === -->
+	<select id="bodNoSltOne" resultType="cmmntyDto" parameterType="cmmntyDto">
+		SELECT * 
+		FROM   BOARD_INFO
+		WHERE  BOD_NO = #{bod_no}
+	</select>	
+	
+<!-- === 게시글 등록 === -->	
+	<insert id="cmmntyInsert" parameterType="cmmntyDto">
+		INSERT INTO BOARD_INFO 
+		VALUES (#{bod_no}
+			   , #{mem_num}
+			   , #{ctgr_no}
+			   , #{bod_title}
+			   , #{bod_date}
+			   , #{bod_text}
+			   , #{bod_cnt}
+			   , #{bod_delchk} )
+	</insert>
+	
+<!-- === 게시글 수정 === -->
+	<update id="cmmntyUpdate" parameterType="cmmntyDto">
+		UPDATE BOARD_INFO 
+		SET    BOD_TITLE = #{bod_title}, 
+			   BOD_TEXT  = #{bod_text} 
+	    WHERE  BOD_NO    = #{bod_no}
+	</update>	
+
+<!-- === 게시글 삭제(삭제여부 변경) === -->
+	<update id="cmmntyDelete" parameterType="cmmntyDto">
+		UPDATE BOARD_INFO 
+		SET    BOD_DELCHK = #{bod_delchk} 
+	    WHERE  BOD_NO     = #{bod_no}
+	</update>	
+
+	
+<!-- 	<select id="fimdId" resultType="mbrDto">
+		SELECT * FROM MEMBER_INFO
+	</select>
+	
+	<select id="findPw" resultType="mbrDto">
+		SELECT * FROM MEMBER_INFO
+	</select>
+	
+	<select id="mbrCodeMax" resultType="mbrDto">
+		SELECT * FROM MEMBER_INFO
+	</select>
+	
+	<insert id="mbrInsert" parameterType="mbrDto">
+		INSERT INTO MEMBER_INFO VALUES (#{id}, #{pw}, #{name}, #{tel} )
+	</insert>
+
+	<update id="mbrUpdate">
+		UPDATE MEMBER_INFO SET TEL = #{tel} WHERE ID = #{id}
+	</update>
+
+	<delete id="mbtDelete">
+		DELETE FROM MEMBER_INFO WHERE ID = #{id}
+	</delete> -->
+
+</mapper>
+

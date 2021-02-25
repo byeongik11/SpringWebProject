@@ -1,0 +1,45 @@
+.alines{
+	text-align: -webkit-center;
+}
+#inputLoc{
+	width: 300px;	
+}
+.headline{
+	color: skyblue;
+	text-align: center;	
+}
+.conwrap{
+	text-align: center;
+}
+.tableth{
+	text-align: left;
+}
+#inputTitle{
+	width: 500px;
+	height: 30px;
+}
+tr{
+	height: 3em;
+}
+#inputSDate{
+	margin-right: 3em;
+}
+#inputEDate{
+	margin-left: 3em;
+}
+.taContent{
+	text-align: -webkit-center;
+}
+#inputTip{
+	min-height: 300px;
+}
+#inputBest{
+	min-height: 100px;
+}
+#inputWorst{
+	min-height: 100px;
+}
+#inputLocDtl{
+	width: 300px;
+	height: 30px;
+}

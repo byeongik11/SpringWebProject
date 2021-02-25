@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 단건조회 / 등록 / 수정 / 삭제 -->
+<mapper namespace="com.webProject.mvc01.IBoardRDao">
+	
+	<resultMap id="page" type="boardDto">	
+		<result property="rnum" column="RNUM"/>	
+		<result property="textNo" column="BOD_NO"/>	
+		<result property="mbrName" column="MEM_NAME"/>	
+		<result property="ctgryNo" column="CTGR_NO"/>	
+		<result property="title" column="BOD_TITLE"/>	
+		<result property="date" column="BOD_DATE"/>	
+		<result property="content" column="BOD_TEXT"/>
+		<result property="cnt" column="BOD_CNT"/>
+		<result property="delChk" column="BOD_DELCHK"/>
+	</resultMap>
+
+	<select id="sltPageMax" parameterType="pageDto" resultType="int">
+		SELECT COUNT(*) FROM BOARD_INFO WHERE CTGR_NO = #{gubun}
+	</select>
+
+	<select id="sltPage" parameterType="pageDto" resultMap="page"> 
+		SELECT * FROM ( SELECT ROWNUM RNUM, B.* 
+						FROM ( SELECT BOD_NO, MEM_NAME, CTGR_NO, BOD_TITLE 
+									, BOD_DATE, BOD_TEXT, BOD_CNT, BOD_DELCHK 
+							   FROM BOARD_INFO , MEMBER_INFO
+							   WHERE CTGR_NO = #{gubun}
+							   ORDER BY TO_NUMBER(BOD_NO) ASC ) B ) 
+		WHERE RNUM BETWEEN #{startData} AND #{endData} 
+        ORDER BY TO_NUMBER(RNUM) DESC
+	</select>
+	
+</mapper>
+
+<!-- <![CDATA[내용]]> 은 부등호를 태그가 아닌 문자로 인식하기 위한것-->

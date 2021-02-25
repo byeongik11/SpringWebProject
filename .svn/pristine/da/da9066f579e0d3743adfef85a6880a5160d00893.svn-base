@@ -1,0 +1,114 @@
+package com.webProject.mvc01;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+@Service("boardRSvc")
+public class BoardRSvcImpl implements IBoardRSvc{
+	
+	@Autowired
+	IBoardRDao rDao;
+	
+	@Autowired
+	IMemberDao mDao;
+
+	@Override
+	public String sltAll(Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String sltChkTitleAll(Model model, int ctgryNo, String title) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String sltChkAreaAll(Model model, int ctgryNo, String trvArea) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String sltChkMbrCodeAll(Model model, int ctgryNo, String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String boardData(Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	//국내
+	
+	@Override
+	public String sltDomesticPage(Model model, PageInfoDto pageDto) {
+		System.out.println("서비스 진입");
+		
+		pageDto.setGubun(2);		//구분자 국내로 세팅 (2번)
+		
+		sltPage(model, pageDto);	//공통 쿼리 실행
+		return "domesticBoard"; 
+	}
+	
+	//해외
+	
+	@Override
+	public String sltAbroadPage(Model model, PageInfoDto pageDto) {
+		System.out.println("서비스 진입");
+		
+		pageDto.setGubun(3);		//구분자 해외로 세팅 (3번)
+		
+		sltPage(model, pageDto);	//공통 쿼리 실행
+		return "abroadBoard"; 
+	}
+	
+	//그룹
+	
+	@Override
+	public String sltGroupPage(Model model, PageInfoDto pageDto) {
+		System.out.println("서비스 진입");
+		
+		pageDto.setGubun(4);		//구분자 그룹으로 세팅 (4번)
+		
+		sltPage(model, pageDto);	//공통 쿼리 실행
+		return "groupBoard"; 
+	}
+	
+	//커뮤니티
+	
+	@Override
+	public String sltCommunityPage(Model model, PageInfoDto pageDto) {
+		System.out.println("서비스 진입");
+		
+		pageDto.setGubun(5);		//구분자 커뮤니티로 세팅 (5번)
+		
+		sltPage(model, pageDto);	//공통 쿼리 실행
+		
+		return "communityBoard"; 
+	}
+
+	//공통
+	
+	public void sltPage(Model model, PageInfoDto pageDto) {
+		
+		pageDto.setTotal(rDao.sltPageMax(pageDto));
+		System.out.println("start: " + pageDto.getStart());
+		System.out.println("last: " + pageDto.getLast());
+		System.out.println("페이지의 최대값 가져오기"+pageDto.getTotal());
+		
+		ArrayList<BoardInfoDto> list = rDao.sltPage(pageDto);
+		
+		System.out.println("리스트 가져오기");
+		model.addAttribute("list", list);
+        model.addAttribute("pageDto", pageDto);
+        System.out.println("리스트와 페이지 넣기");
+        
+	}
+}

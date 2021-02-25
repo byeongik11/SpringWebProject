@@ -1,0 +1,81 @@
+package com.webProject.mvc01;
+
+public class MbrDto {
+//회원정보 DTO
+	private int mem_num;		//회원번호
+	private String mem_id;		//아이디
+	private String mem_pw;		//비밀번호
+	private String mem_name;	//이름
+	private String mem_birth;	//생년월일
+	private String mem_sex;		//성별
+	private String mem_adres;	//주소
+	private String mem_tel;		//전화번호
+	private String mem_email;	//이메일
+	private String mem_lvl;		//회원레벨(관리자 : 1, 회원 : 5, 탈퇴 : 9)
+	
+	public int getMem_num() {
+		return mem_num;
+	}
+	public void setMem_num(int mem_num) {
+		this.mem_num = mem_num;
+	}
+	public String getMem_id() {
+		return mem_id;
+	}
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+	public String getMem_pw() {
+		return mem_pw;
+	}
+	public void setMem_pw(String mem_pw) {
+		this.mem_pw = mem_pw;
+	}
+	public String getMem_name() {
+		return mem_name;
+	}
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
+	public String getMem_birth() {
+		return mem_birth;
+	}
+	public void setMem_birth(String mem_birth) {
+		this.mem_birth = mem_birth;
+	}
+	public String getMem_sex() {
+		return mem_sex;
+	}
+	public void setMem_sex(String mem_sex) {
+		this.mem_sex = mem_sex;
+	}
+	public String getMem_adres() {
+		return mem_adres;
+	}
+	public void setMem_adres(String mem_adres) {
+		this.mem_adres = mem_adres;
+	}
+	public String getMem_tel() {
+		return mem_tel;
+	}
+	public void setMem_tel(String mem_tel) {
+		this.mem_tel = mem_tel;
+	}
+	public String getMem_email() {
+		return mem_email;
+	}
+	public void setMem_email(String mem_email) {
+		this.mem_email = mem_email;
+	}
+	public String getMem_lvl() {
+		return mem_lvl;
+	}
+	public void setMem_lvl(String mem_lvl) {
+		this.mem_lvl = mem_lvl;
+	}
+	
+	public String toString() {
+		return mem_num + "|" + mem_id + "|" + mem_pw + "|" + mem_name + "|" + mem_birth + "|" + mem_sex + "|" + mem_adres + "|" + mem_tel + "|" + mem_email + "|" + mem_lvl;
+	}
+	
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 단건조회 / 등록 / 수정 / 삭제 -->
+<mapper namespace="com.webProject.mvc01.IDetailCUDDao">
+	
+	
+	<resultMap id="dDto" type="boardDto">
+		<result column="BOD_NO" 		property="textNo"		/>
+		<result column="TRV_SD" 		property="startDate"	/>
+		<result column="TRV_ED" 		property="endDate"		/>
+		<result column="TRV_AREA_CTNT" 	property="trvArea" 		/>
+		<result column="TRV_AREA_CTRY"	property="trvAreaDtail"	/>
+		<result column="TRV_COST"		property="cost"			/>
+		<result column="TRV_BEST"		property="myBest"		/>
+		<result column="TRV_WORST"		property="myWorst"		/>
+		<result column="TRV_MAX"		property="max"			/>
+		<result column="TRV_TRANS"		property="trans"		/>
+		<result column="TRV_ETC"		property="etc"			/>
+	</resultMap>
+	
+	<select id="sltOneDetail" parameterType="int" resultMap="dDto">
+		SELECT * FROM TRAVEL_INFO WHERE BOD_NO = #{newNum}
+	</select>
+	
+	<insert id="insertDetail" parameterType="boardDto" >
+		INSERT INTO TRAVEL_INFO VALUES ( #{textNo}, #{startDate}, #{endDate}, #{trvArea}
+										,#{trvAreaDtail}, #{cost}, #{myBest}, #{myWorst}
+										,#{max}, #{trans}, #{etc} )
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="updateDetail" parameterType="boardDto" >
+		UPDATE  TRAVEL_INFO
+		SET		TRV_SD		  = #{startDate}
+			  , TRV_ED		  = #{endDate}
+			  , TRV_AREA_CTNT = #{trvArea}
+			  , TRV_AREA_CTRY = #{trvAreaDtail}
+			  , TRV_COST	  = #{cost}
+			  , TRV_BEST	  = #{myBest}
+			  , TRV_WORST	  = #{myWorst}
+			  , TRV_MAX		  = #{max}
+			  , TRV_TRANS	  = #{trans}
+			  , TRV_ETC		  = #{etc}
+			  
+		WHERE   BOD_NO 		  = #{textNo}
+	</update>
+	
+</mapper>
+

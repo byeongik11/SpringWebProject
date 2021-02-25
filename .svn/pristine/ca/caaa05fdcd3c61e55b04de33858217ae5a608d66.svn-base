@@ -1,0 +1,70 @@
+package com.webProject.mvc01;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+
+@Service("cmmntySvc")
+public class CmmntyRSvcImpl implements ICmmntyRSvc {
+
+	@Autowired
+	private ICmmntyRDao cmmntyDao;
+
+	@Override
+	public String sltAll(Model model, CmmntyDto cmmntyDto) {
+
+		int ctgr_no = cmmntyDto.getCtgr_no();
+		System.out.println("===================" + ctgr_no);
+		
+		
+		ArrayList<CmmntyDto> cmonList = cmmntyDao.sltAll(ctgr_no);
+		
+		if( cmonList == null )
+		{
+			return "error";	//게시글이 없다.
+		}
+		
+		model.addAttribute("LIST", cmonList);
+		
+		return "communityBoard";
+	}
+
+	@Override
+	@Transactional
+	public String sltPost(Model model, int bod_no) {
+		
+		CmmntyDto cmmntyDtoDB = cmmntyDao.sltPost(bod_no);
+		
+		String bod_delchk = String.valueOf(cmmntyDtoDB.getBod_delchk());
+		
+		if( cmmntyDtoDB == null || "9".equals(bod_delchk))
+		{
+			return "error";	//데이터 없다.
+		}
+		
+		// 조회수 카운트
+		int bod_cnt = cmmntyDtoDB.getBod_cnt() + 1;
+		
+		cmmntyDtoDB.setBod_cnt(bod_cnt);
+		
+		cmmntyDao.updateCnt(cmmntyDtoDB);
+		
+		ArrayList<CommentDto> cmtList = cmmntyDao.sltCmt(bod_no);
+		
+		if( cmtList == null )
+		{
+			return "cmmntyRead";	//게시글이 없다.
+		}
+		
+		model.addAttribute("CMMNTYDTO", cmmntyDtoDB);
+		model.addAttribute("CMTLIST", cmtList);
+		model.addAttribute("CMTSIZE", cmtList.size());
+		
+		return "cmmntyRead";
+	}
+
+	
+}
